@@ -2,55 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-    asdasd
-
-    <script>
-        
-        
-        const key = 'QJETHXM-1KTMFBQ-M6RKEEW-3RMHGDA'
-       
-
-        async function data() { 
-            //  const data = await axios.get('http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline')
-            // const data = await axios.get(`http://localhost:3002/api/users/${key}/jj`)
-            const data = await fetch(`http://localhost:3002/api/users/${key}/jj`)
-            const res = data.json()
-            return res
-        }
-        
-        // petch
-        data().then(res => {
-            document.querySelector('body').innerHTML = 
-                res.map(item => {
-                    return `
-                        <div>${item.name}</div>
-                        <div>${item.age}</div>
-                    `
-                })
-        })
-
-        // data().then(res => {
-        //     document.querySelector('body').innerHTML = 
-        //         res.map(item => {
-        //             return `
-        //                 <div>${item.name}</div>
-        //                 <div>${item.age}</div>
-        //             `
-        //         })
-        // })
-
-        
-
-        
-    </script>
-
-    <!-- <script src="../app.js"></script> -->
+    index
+    <div class="state"></div>
+    
+    <script type="module" src="../src/app.js" defer></script>
 </body>
 </html>
