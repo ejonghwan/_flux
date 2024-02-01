@@ -7,19 +7,52 @@ import { userInitialState, userReducer } from './reducers/index.js';
 
 
 // dispatch와 state를 리턴하는 함수 
-const reducers = state => {
-    const dispatch = ({ type, payload }) => userReducer(null, { type, payload });
-    state = dispatch({ type: "USER_LOGIN_SUCCESS", payload: ['aa','bb','cc'] });
-    return [ state, dispatch ];
+const reducers = (state) => {
+    let newState = {};
+    const dispatch = ({ type, payload }) => {
+        state = {...state, ...userReducer(null, { type, payload })}
+        return state;
+    };
+    // const newState = {...state, ...dispatch({ type, payload })}
+
+    return [ newState, dispatch ];
 }
-const [ state, dispatch ] = reducers(userInitialState);
+
+const [ state, dispatch ] = reducers( userInitialState );
 
 
-dispatch({ type: "USER_LOGIN_SUCCESS", payload: [1,2,3] })
+
+console.log( 'dispatch?', dispatch({ type: "USER_LOGIN_SUCCESS", payload: [1,2,3] }) )
 console.log('state?', state)
+console.log(userInitialState)
+
 
 
 document.querySelector('.state').innerHTML = `${state.user[0]}`
+
+
+
+
+
+
+
+
+
+// const useDispatch = () => {
+//     return obj => {
+//         const { type, payload } = obj;
+//         // userInitialState = {...userInitialState, ...userReducer(null, { type, payload })}
+//     }
+//     // const st = {...state, ...dispatch({ type: "USER_LOGIN_SUCCESS", payload: [1,2,3] })}
+//     return [ st, dispatch ];
+// }
+
+
+// userInitialState.user = {a: 11} 
+// console.log(userInitialState)
+// const dispatch = useDispatch()
+// console.log( dispatch({ type: "USER_LOGIN_SUCCESS", payload: [1,2,3] }) )
+
 
 
 
