@@ -5,6 +5,8 @@ import { userInitialState, userReducer } from './reducers/index.js';
 // dispatch 함수 만들고 액션 넣어 보내서 변경되는지 
 // const { state, dispatch } = context()
 
+
+// dispatch와 state를 리턴하는 함수 
 const reducers = state => {
     const dispatch = ({ type, payload }) => userReducer(null, { type, payload });
     state = dispatch({ type: "USER_LOGIN_SUCCESS", payload: ['aa','bb','cc'] });
