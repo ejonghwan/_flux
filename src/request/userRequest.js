@@ -1,5 +1,5 @@
+import { state, dispatch } from '../reducers/index.js'
 // import axios from "axios";
-
 // console.log(axios);
 
 export const loginRequest = payload => {
@@ -7,6 +7,16 @@ export const loginRequest = payload => {
     console.log('login : ', id, password)
 }
 
+export const allUsers = async () => {
+    try {
+        const res = await axios.get('https://jsonplaceholder.typicode.com/users');
+    
+        userDispatch({ type: "USER_All_SUCCESS", payload: res.data });
+    } catch(e) {
+        userDispatch({ type: "USER_All_SUCCESS", payload: ['jong','hehe','ggu'] });
+    }
+    
+}
 
 
 
@@ -20,6 +30,7 @@ export const loginRequest = payload => {
 */
 
 /* 
+    flux 구현 
     문제 : 리덕스를 사용하지않으면 상태변경을 감지할 수 없음. 
     해결 :
     1. request 감지하는 함수 만들기 

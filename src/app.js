@@ -1,34 +1,19 @@
-import { userInitialState, userReducer } from './reducers/index.js';
+import { state, dispatch, userReducer } from './reducers/index.js';
 // import axios from "../node_modules/axios/dist/esm/axios.min.js";
 
-
-// dispatch 함수 만들고 액션 넣어 보내서 변경되는지 
-// const { state, dispatch } = context()
-
-
-// dispatch와 state를 리턴하는 함수 
-const reducers = (state) => {
-    let newState = {};
-    const dispatch = ({ type, payload }) => {
-        state = {...state, ...userReducer(null, { type, payload })}
-        return state;
-    };
-    // const newState = {...state, ...dispatch({ type, payload })}
-
-    return [ newState, dispatch ];
-}
-
-const [ state, dispatch ] = reducers( userInitialState );
+import { allUsers } from './request/userRequest.js'
 
 
 
-console.log( 'dispatch?', dispatch({ type: "USER_LOGIN_SUCCESS", payload: [1,2,3] }) )
-console.log('state?', state)
-console.log(userInitialState)
+    
+const userDispatch = dispatch("userInitialState", userReducer);
+userDispatch({ type: "USER_LOGIN_SUCCESS", payload: ['jong','hehe','ggu'] });
 
+const { userInitialState } = state;
 
+allUsers();
 
-document.querySelector('.state').innerHTML = `${state.user[0]}`
+document.querySelector('.state').innerHTML = `${userInitialState.user.map(item => `<span>${item}</span>`).join('')}`;
 
 
 
@@ -37,21 +22,6 @@ document.querySelector('.state').innerHTML = `${state.user[0]}`
 
 
 
-
-// const useDispatch = () => {
-//     return obj => {
-//         const { type, payload } = obj;
-//         // userInitialState = {...userInitialState, ...userReducer(null, { type, payload })}
-//     }
-//     // const st = {...state, ...dispatch({ type: "USER_LOGIN_SUCCESS", payload: [1,2,3] })}
-//     return [ st, dispatch ];
-// }
-
-
-// userInitialState.user = {a: 11} 
-// console.log(userInitialState)
-// const dispatch = useDispatch()
-// console.log( dispatch({ type: "USER_LOGIN_SUCCESS", payload: [1,2,3] }) )
 
 
 
@@ -67,10 +37,8 @@ document.querySelector('.state').innerHTML = `${state.user[0]}`
 // }
 // aa();
 
-
 // window.addEventListener('click', e => {
 //     userInitialState.isLogged = !true;
-
 //     console.log(userInitialState)
 // })
 

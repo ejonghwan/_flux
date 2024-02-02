@@ -1,5 +1,6 @@
-import { loginRequest } from './userRequest.js';
+import { loginRequest, allUsers } from './userRequest.js';
 
 export {
     loginRequest,
+    allUsers
 }
