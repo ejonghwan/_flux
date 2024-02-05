@@ -1,24 +1,30 @@
 import { state, dispatch, userReducer } from './reducers/index.js';
 // import axios from "../node_modules/axios/dist/esm/axios.min.js";
 
-import { allUsers } from './request/userRequest.js'
+import { allUsers } from './request/userRequest.js';
 
 
+const App = () => {
 
+    const userDispatch = dispatch("userInitialState", userReducer);
+    const { userInitialState } = state;
+
+    // request를 reducer 함수에서 감지하거나 api 함수를 직접 실행하기
     
-const userDispatch = dispatch("userInitialState", userReducer);
-userDispatch({ type: "USER_LOGIN_SUCCESS", payload: ['jong','hehe','ggu'] });
-
-const { userInitialState } = state;
-
-allUsers();
-
-document.querySelector('.state').innerHTML = `${userInitialState.user.map(item => `<span>${item}</span>`).join('')}`;
-
+    userDispatch({ type: "USER_ALL_REQUEST" });
+    allUsers(() => {
+        const { userInitialState } = state;
+        userInitialState.allUserLoading ? document.querySelector('.loading').style.display = 'block' : document.querySelector('.loading').style.display = 'none'; 
+        
+        document.querySelector('.state').innerHTML = `${userInitialState.users.map(item => `<div>${item.name}</div>`).join('')}`;
+    });
 
 
 
 
+}
+
+export default App;
 
 
 
@@ -46,6 +52,8 @@ document.querySelector('.state').innerHTML = `${userInitialState.user.map(item =
     3. 사가에서 감지한 상태에 연결된 함수 실행  API 요청
     4. 사가에서 요청한 결과에 따른 액션 실행 (성공 or 실패)
     5. 리듀서 상태변경 후 화면에 뿌림 
+
+    * 사가에서는 리퀘스트를 감지하는 함수가 있음. 감지되면 설정된 함수가 실행됨
 */
 
 /* 

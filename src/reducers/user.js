@@ -6,9 +6,11 @@ export const userInitialState = {
     users: [],
 }
 
-// { type: "" , data: [] }
 
 const userReducer = (state = userInitialState, action) => {
+
+    console.log('action ??', action)
+
     switch(action.type) {
 
         case "USER_ALL_REQUEST" : 

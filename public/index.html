@@ -8,8 +8,12 @@
 </head>
 <body>
     index
+    <div class="loading">loading bar</div>
     <div class="state"></div>
     
-    <script type="module" src="../src/app.js" defer></script>
+    <script type="module" defer>
+        import App from '../src/app.js'
+        App()
+    </script>
 </body>
 </html>
