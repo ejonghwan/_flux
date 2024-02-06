@@ -16,7 +16,7 @@ const App = () => {
         const { userInitialState } = state;
         userInitialState.allUserLoading ? document.querySelector('.loading').style.display = 'block' : document.querySelector('.loading').style.display = 'none'; 
         
-        document.querySelector('.state').innerHTML = `${userInitialState.users.map(item => `<div>${item.name}</div>`).join('')}`;
+        document.querySelector('.state').innerHTML = `${userInitialState.users.map(item => `<div>${item?.name}</div>`).join('')}`;
     });
 
 

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <script>
+        class 발행기관 {
+            #state;
+            #observers = new Set();
+
+            constructor (state) {
+                this.#state = state;
+                console.log('this?', this.#state)
+                Object.keys(state).forEach(key => {
+
+                    console.log('fore', key)
+                    return Object.defineProperty(this, key, {
+                        // value: 'asd' + key,
+                        get: () => this.#state[key] + 1,
+                    })
+                });
+            }
+
+            내부에_변화가_생김 (newState) {
+                this.#state = { ...this.#state, ...newState };
+                this.구독자에게_알림();
+            }
+
+            구독자_등록 (subscriber) {
+                this.#observers.add(subscriber);
+            }
+
+            구독자에게_알림 () {
+                this.#observers.forEach(fn => fn());
+            }
+        }
+
+        const hoho = new 발행기관({ a: 1, b: 2, c: 3 });
+        console.log(hoho)
+    </script>
+    
+</body>
+</html>
