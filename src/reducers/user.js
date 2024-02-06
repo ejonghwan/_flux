@@ -4,6 +4,7 @@ export const userInitialState = {
     allUserLoading: false,
     user: [],
     users: [],
+    // asd
 }
 
 
@@ -65,7 +66,7 @@ export default userReducer;
         configurable: true  // 삭제 가능. 에러 발생 x
     }
 
-    
+
     s는 여러개 가능
     Object.defineProperties(obj, {
         name: {
