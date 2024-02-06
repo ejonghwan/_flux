@@ -55,3 +55,30 @@ const userReducer = (state = userInitialState, action) => {
 
 
 export default userReducer;
+
+
+/*
+    Object.defineProperty(person, 'firstName', {
+        value: 'Ungmo',
+        writable: true,  // 값 변경 가능
+        enumerable: true,   // Object.keys forin으로 열거가능
+        configurable: true  // 삭제 가능. 에러 발생 x
+    }
+
+    
+    s는 여러개 가능
+    Object.defineProperties(obj, {
+        name: {
+            value: "John",
+            writable: true
+        },
+        age: {
+            value: 30,
+            writable: false
+        },
+        city: {
+            value: "New York",
+            writable: true
+        }
+    });
+*/
