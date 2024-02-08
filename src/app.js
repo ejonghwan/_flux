@@ -26,8 +26,7 @@ const App = () => {
 
 export default App;
 
-
-// ...옵저버 패턴으로 구현한거 보기 
+ 
 
 
 
