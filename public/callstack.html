@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+
+        
+        // global
+        const a = () => {console.log('a'); b(); debugger;}
+        const b = () => {console.log('b'); debugger;}
+        const c = () => {console.log('c'); d(); debugger;}
+        const d = () => {console.log('d'); a(); debugger;}
+
+        
+
+        a();
+        c();
+
+
+
+    </script>
+
+</body>
+</html>

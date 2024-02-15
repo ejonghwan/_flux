@@ -18,10 +18,6 @@ const App = () => {
         
         document.querySelector('.state').innerHTML = `${userInitialState.users.map(item => `<div>${item?.name}</div>`).join('')}`;
     });
-
-
-
-
 }
 
 export default App;

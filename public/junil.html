@@ -7,24 +7,30 @@
 </head>
 <body>
 
-
     <script>
+
+        // 최종목표 : 내부에 변화가 생길 경우 구독자에게 알리는 것
+
         class 발행기관 {
             #state;
             #observers = new Set();
 
             constructor (state) {
                 this.#state = state;
-                console.log('this?', this.#state)
-                Object.keys(state).forEach(key => {
 
-                    console.log('fore', key)
-                    return Object.defineProperty(this, key, {
-                        // value: 'asd' + key,
-                        get: () => this.#state[key] + 1,
-                    })
-                });
+                // console.log('t?', this.#state)
+                /* 
+                    1. 인자는 객체로 
+                    2. 객체의 키를 뽑아 디파인 프로퍼티에 넣고 
+                    3. getter 셋팅. 
+                    4. getter는 객체의 값만 리턴
+                */
+
+                Object.keys(state).forEach(key => Object.defineProperty(this, key, {
+                    get: () => this.#state[key]
+                }));
             }
+
 
             내부에_변화가_생김 (newState) {
                 this.#state = { ...this.#state, ...newState };
@@ -42,6 +48,165 @@
 
         const hoho = new 발행기관({ a: 1, b: 2, c: 3 });
         console.log(hoho)
+
+
+
+        // 구독자
+        class 구독자 {
+            #fn;
+
+            constructor (발행기관에_변화가_생길_때_하는_일) {
+                this.#fn = 발행기관에_변화가_생길_때_하는_일;
+            }
+
+            구독 (publisher) {
+                publisher.구독자_등록(this.#fn);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        // ####################################
+
+
+        /*
+            Object method 
+        */
+        const obj = { a: 1, b: 2 }
+        // 1. 계산된 프로퍼티 
+        // const a = (p1, p2) => ({ [p1]: 'mike', [p2]: 5 })
+        // console.log( a('name', 'age') )
+        
+        // 2. 객체 키만 배열로  
+        // Object.keys(obj) // [a, b]
+
+        // 3. 객체 [키, 값] 배열로
+        // const en = Object.entries(obj) //[['a': 1], ['b': 2]]
+        
+        // 4. 엔트리스 2차원배열 풀기 
+        // Object.fromEntries(en) // {a: 1, b: 2}
+
+        // 5. 
+        // Object.defineProperty(this, key, {opt})
+
+        const obj22 = { name: 'before' }
+
+        console.dir(obj22)
+
+        Object.defineProperty(obj22, 'name', {
+            // value: 'hoho',  //속성값 num, obj, fn 가능
+            // writable: true,  // 할당연산자로 변경가능여부. 기본값 false
+            enumerable: true, // 열거시 노출여부. 기본값 false
+            configurable: true, // 변경 삭제 가능여부. 기본값 false
+            
+            get () {
+                // getter는 value, writeable 있으면 안됨
+                // getter는 두번재 name값을 직접 호출했을 때 실행됨.  ex) obj22.name
+                // console.log('겟터??', 'this : ', this, 'name :', name)
+                return name + ' get'
+            },
+            set(newValue) {
+                // console.log('셋터??', 'newValue : ', newValue, 'this : ', this, 'name : ', name)
+                name = newValue;
+            }
+        })
+
+
+
+        // obj22.name = 'change'
+        // delete obj22.name
+
+        for(const p in obj22) {
+            // console.log('열거', p, obj22[p])
+        }
+
+        // console.log('마지막', obj22, obj22.name)
+
+
+
+
+
+
+
+        /*
+            Symbol - 객체를 중간에 수정할 때 기존 로직을 건드리지 않게 ..keys, forin 심볼로 넣으면 무시함
+        */
+        const id = Symbol('symbol name id')
+        // console.log(id)
+
+        obj.c = id
+        // console.log(obj)
+
+        // for(const aa in obj) { 
+        //     try {
+        //         console.log(obj[aa]);
+        //         // alert(obj[aa])
+        //     } catch(e){
+        //         console.log('error??', e)
+        //     } 
+        // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        // function Dessert(name, sweetness) {
+        //     let cakePrice = '20$'
+
+        //     this.PriceLog = ['d'];
+        //     this.name = name;
+        //     this.sweetness = sweetness;
+
+        //     Object.defineProperty(this, 'price', {
+        //         enumerable: true,
+        //         get() {
+        //             return cakePrice;
+        //         },
+
+        //         set(newPrice) {
+        //             cakePrice = newPrice;
+        //             this.PriceLog.push(newPrice)
+        //         }
+        //     })
+        // }
+
+        // Dessert.prototype.getPriceLog = function() {
+        //     return this.PriceLog;
+        // }
+
+        // const lemonCake = new Dessert('lemon cake', 8)
+
+
+        // lemonCake.price = '100$'
+        // lemonCake.price = '2$'
+        // lemonCake.price = '5$'
+        // console.log( lemonCake.getPriceLog() );
+
+
+
+
+
+
+
+
     </script>
     
 </body>
