@@ -11,7 +11,34 @@
 
         // 최종목표 : 내부에 변화가 생길 경우 구독자에게 알리는 것
 
-        class 발행기관 {
+        // 큰 흐름
+        // // Store를 생성한다.
+        // const store = new Store({
+        //     a: 10,
+        //     b: 20,
+        // });
+
+        // // 컴포넌트를 생성한다.
+        // const component1 = new Component({ subscribe: [store] });
+        // const component2 = new Component({ subscribe: [store] });
+
+        // // 컴포넌트가 store를 구독한다.
+        // component1.subscribe(store); // a + b = ${store.state.a + store.state.b}
+        // component2.subscribe(store); // a * b = ${store.state.a * store.state.b}
+
+        // // store의 state를 변경한다.
+        // store.setState({
+        //     a: 100,
+        //     b: 200,
+        // });
+
+        // // store가 변경되었음을 알린다.
+        // store.notify();
+
+
+
+        // 발행 기관
+        class Creater {
             #state;
             #observers = new Set();
 
@@ -32,37 +59,56 @@
             }
 
 
-            내부에_변화가_생김 (newState) {
+            handleInChage (newState) {
                 this.#state = { ...this.#state, ...newState };
-                this.구독자에게_알림();
+                this.handleCallSubscriber();
             }
 
-            구독자_등록 (subscriber) {
+            handleCreateSubscriber (subscriber) {
                 this.#observers.add(subscriber);
             }
 
-            구독자에게_알림 () {
+            handleCallSubscriber () {
+                // console.log('bb??', this, this.#observers)
                 this.#observers.forEach(fn => fn());
             }
         }
 
-        const hoho = new 발행기관({ a: 1, b: 2, c: 3 });
-        console.log(hoho)
-
-
 
         // 구독자
-        class 구독자 {
+        class Subscriber {
             #fn;
-
-            constructor (발행기관에_변화가_생길_때_하는_일) {
-                this.#fn = 발행기관에_변화가_생길_때_하는_일;
+            constructor (state) {
+                this.#fn = state; //발행기관에_변화가_생길_때_하는_일;
             }
-
-            구독 (publisher) {
-                publisher.구독자_등록(this.#fn);
+            handleSubscribe (publisher) {
+                publisher.handleCreateSubscriber(this.#fn);
             }
         }
+
+
+        // 적용
+        const state = new Creater({
+            a: 10,
+            b: 20,
+        });
+
+        const 덧셈계산기 = new Subscriber(() => console.log(`a + b = ${state.a + state.b}`));
+        const 곱셈계산기 = new Subscriber(() => console.log(`a * b = ${state.a * state.b}`));
+        
+
+        덧셈계산기.handleSubscribe(state);
+        곱셈계산기.handleSubscribe(state);
+
+        state.handleCallSubscriber();
+        // a + b = 30
+        // a * b = 200
+
+        state.handleInChage({ a: 100, b: 200 });
+        // a + b = 300
+        // a * b = 20000
+
+
 
 
 
