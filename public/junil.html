@@ -97,16 +97,16 @@
         const 곱셈계산기 = new Subscriber(() => console.log(`a * b = ${state.a * state.b}`));
         
 
-        덧셈계산기.handleSubscribe(state);
-        곱셈계산기.handleSubscribe(state);
+        // 덧셈계산기.handleSubscribe(state);
+        // 곱셈계산기.handleSubscribe(state);
 
-        state.handleCallSubscriber();
-        // a + b = 30
-        // a * b = 200
+        // state.handleCallSubscriber();
+        // // a + b = 30
+        // // a * b = 200
 
-        state.handleInChage({ a: 100, b: 200 });
-        // a + b = 300
-        // a * b = 20000
+        // state.handleInChage({ a: 100, b: 200 });
+        // // a + b = 300
+        // // a * b = 20000
 
 
 
