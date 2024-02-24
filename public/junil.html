@@ -214,37 +214,37 @@
 
 
         
-        // function Dessert(name, sweetness) {
-        //     let cakePrice = '20$'
+        function Dessert(name, sweetness) {
+            let cakePrice = '20$'
 
-        //     this.PriceLog = ['d'];
-        //     this.name = name;
-        //     this.sweetness = sweetness;
+            this.PriceLog = ['d'];
+            this.name = name;
+            this.sweetness = sweetness;
 
-        //     Object.defineProperty(this, 'price', {
-        //         enumerable: true,
-        //         get() {
-        //             return cakePrice;
-        //         },
+            Object.defineProperty(this, 'price', {
+                enumerable: true,
+                get() {
+                    return cakePrice;
+                },
 
-        //         set(newPrice) {
-        //             cakePrice = newPrice;
-        //             this.PriceLog.push(newPrice)
-        //         }
-        //     })
-        // }
+                set(newPrice) {
+                    cakePrice = newPrice;
+                    this.PriceLog.push(newPrice)
+                }
+            })
+        }
 
-        // Dessert.prototype.getPriceLog = function() {
-        //     return this.PriceLog;
-        // }
+        Dessert.prototype.getPriceLog = function() {
+            return this.PriceLog;
+        }
 
-        // const lemonCake = new Dessert('lemon cake', 8)
+        const lemonCake = new Dessert('lemon cake', 8)
 
 
-        // lemonCake.price = '100$'
-        // lemonCake.price = '2$'
-        // lemonCake.price = '5$'
-        // console.log( lemonCake.getPriceLog() );
+        lemonCake.price = '100$'
+        lemonCake.price = '2$'
+        lemonCake.price = '5$'
+        console.log( lemonCake.getPriceLog() );
 
 
 
