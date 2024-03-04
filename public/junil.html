@@ -59,16 +59,16 @@
             }
 
 
-            handleInChage (newState) {
+            handleInChage (newState) { // 구독변경
                 this.#state = { ...this.#state, ...newState };
                 this.handleCallSubscriber();
             }
 
-            handleCreateSubscriber (subscriber) {
+            handleCreateSubscriber (subscriber) { //구독 생성
                 this.#observers.add(subscriber);
             }
 
-            handleCallSubscriber () {
+            handleCallSubscriber () { 
                 // console.log('bb??', this, this.#observers)
                 this.#observers.forEach(fn => fn());
             }
@@ -78,16 +78,16 @@
         // 구독자
         class Subscriber {
             #fn;
-            constructor (state) {
-                this.#fn = state; //발행기관에_변화가_생길_때_하는_일;
+            constructor (fn) {
+                this.#fn = fn; //발행기관에_변화가_생길_때_하는_일;
             }
-            handleSubscribe (publisher) {
-                publisher.handleCreateSubscriber(this.#fn);
+            handleSubscribe (state) {
+                state.handleCreateSubscriber(this.#fn);
             }
         }
 
 
-        // 적용
+        // 적용 스토어 생성
         const state = new Creater({
             a: 10,
             b: 20,
@@ -97,8 +97,8 @@
         const 곱셈계산기 = new Subscriber(() => console.log(`a * b = ${state.a * state.b}`));
         
 
-        // 덧셈계산기.handleSubscribe(state);
-        // 곱셈계산기.handleSubscribe(state);
+        덧셈계산기.handleSubscribe(state);
+        곱셈계산기.handleSubscribe(state);
 
         // state.handleCallSubscriber();
         // // a + b = 30
@@ -213,7 +213,7 @@
 
 
 
-        
+        // Object defineProperty
         function Dessert(name, sweetness) {
             let cakePrice = '20$'
 
