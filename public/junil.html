@@ -59,7 +59,7 @@
             }
 
 
-            handleInChage (newState) { // 구독변경
+            handleInChage (newState) { // setState 같은 기능
                 this.#state = { ...this.#state, ...newState };
                 this.handleCallSubscriber();
             }
@@ -68,7 +68,7 @@
                 this.#observers.add(subscriber);
             }
 
-            handleCallSubscriber () { 
+            handleCallSubscriber () { // 값 호출
                 // console.log('bb??', this, this.#observers)
                 this.#observers.forEach(fn => fn());
             }
@@ -81,7 +81,7 @@
             constructor (fn) {
                 this.#fn = fn; //발행기관에_변화가_생길_때_하는_일;
             }
-            handleSubscribe (state) {
+            handleSubscribe (state) { //인스턴스를 넘겨서 구독자 생성
                 state.handleCreateSubscriber(this.#fn);
             }
         }
@@ -109,6 +109,49 @@
         // // a * b = 20000
 
 
+
+
+
+
+        class S {
+            #state;
+            #ob = new Set();
+
+            constructor(state) {
+                this.#state = state
+                Object.keys(state).forEach(key => Object.defineProperties(this, key, {
+                    get: () => this.state[key]
+                }))
+            }
+
+            // setState
+
+            setState(newState) {
+                this.#state = { ...this.#state, ...newState }
+                this.call();
+            }
+
+            create(subscribe) {
+                this.#ob.add(subscribe)
+            }
+
+            call() {
+                this.#ob.forEach(fn => fn())
+            }
+            
+        }
+
+        
+        class C {
+            #fn;
+            constructor(fn) {
+                this.#fn = fn; //발행기관에 변화가 생길떄
+            }
+
+            subscribe(ins) {
+                ins.create(this.#fn);
+            }
+        }
 
 
 
